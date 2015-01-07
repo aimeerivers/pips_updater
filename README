@@ -1,6 +1,11 @@
+Useful setup notes:
+
 https://confluence.dev.bbc.co.uk/display/~stuart.hicks@bbc.co.uk/Working+with+the+Cloud+Gems+Server+%28gems.cloud.bbc.co.uk%29
 
 https://confluence.dev.bbc.co.uk/display/~ben.scott@bbc.co.uk/GitHub+SSH+on+Reith
 
-Given a version pid, update brand, series, episode, version, media_assets and ondemands
-ruby update_pips.rb 'p00t0161'
+Given a version pid, update brand, series, episode, version, media_assets and ondemands:
+
+  rake update_version
+
+It will ask you for the version pid.
