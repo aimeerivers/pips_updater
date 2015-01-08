@@ -1,16 +1,7 @@
 system 'export PIPS_BASE_URI=https://api.test.bbc.co.uk/pips'
 require 'pips'
 
-task :update_version do
-  print "Enter version pid: "
-  vpid = STDIN.gets.chomp
-  puts vpid
-
-  puts "Finding version with pid: #{vpid}"
-  version = PIPS::XML::Version.new(pid: vpid)
-
-  # collect array of all parents .. until no more parents
-
+def update_parents_for_version(version)
   parents = []
 
   parent = version.parent
@@ -19,16 +10,27 @@ task :update_version do
     parent = parent.parent
   end
 
-  # go through the array to update titles
   parents.each do |programme|
     title = programme.title
-    puts "Updating #{programme.class.to_s.split('::').last}: #{title}"
-    programme.title = "#{title} "
-    programme.commit_updates
-    programme.title = title
-    programme.commit_updates
+    print "Update #{programme.class.to_s.split('::').last}: #{title}? [y/n] "
+    response = STDIN.gets.chomp
+    if response == 'y'
+      programme.title = "#{title} "
+      programme.commit_updates
+      programme.title = title
+      programme.commit_updates
+    end
   end
+end
 
+task :update_version do
+  print "Enter version pid: "
+  vpid = STDIN.gets.chomp
+
+  puts "Finding version with pid: #{vpid}"
+  version = PIPS::XML::Version.new(pid: vpid)
+
+  update_parents_for_version(version)
 
   # update duration on the version
 
