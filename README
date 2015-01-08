@@ -6,6 +6,7 @@ https://confluence.dev.bbc.co.uk/display/~ben.scott@bbc.co.uk/GitHub+SSH+on+Reit
 
 Given a version pid, update brand, series, episode, version, media_assets and ondemands:
 
+  export PIPS_BASE_URI=https://api.test.bbc.co.uk/pips
   rake update_version
 
 It will ask you for the version pid.

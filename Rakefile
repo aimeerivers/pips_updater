@@ -1,4 +1,3 @@
-system 'export PIPS_BASE_URI=https://api.test.bbc.co.uk/pips'
 require 'pips'
 
 def update_parents_for_version(version)
