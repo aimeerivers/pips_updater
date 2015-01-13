@@ -34,11 +34,8 @@ def update_parents_for_programme(programme)
 end
 
 task :update_episode do
-  epid = ARGV[1]
-  if epid.nil?
-    print "Enter episode pid: "
-    epid = STDIN.gets.chomp
-  end
+  print "Enter episode pid: "
+  epid = STDIN.gets.chomp
 
   puts "Finding episode with pid: #{epid}"
   episode = PIPS::XML::Episode.new(pid: epid)
@@ -51,11 +48,8 @@ task :update_episode do
 end
 
 task :update_version do
-  vpid = ARGV[1]
-  if vpid.nil?
-    print "Enter version pid: "
-    vpid = STDIN.gets.chomp
-  end
+  print "Enter version pid: "
+  vpid = STDIN.gets.chomp
 
   puts "Finding version with pid: #{vpid}"
   version = PIPS::XML::Version.new(pid: vpid)
