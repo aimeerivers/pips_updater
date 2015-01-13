@@ -1,5 +1,12 @@
 require 'pips'
 
+def update_title_on_programme(programme, title)
+  programme.title = "#{title} "
+  programme.commit_updates
+  programme.title = title
+  programme.commit_updates
+end
+
 def update_parents_for_programme(programme)
   parents = []
 
@@ -14,12 +21,26 @@ def update_parents_for_programme(programme)
     print "Update #{programme.class.to_s.split('::').last}: #{title}? [y/n] "
     response = STDIN.gets.chomp
     if response == 'y'
-      programme.title = "#{title} "
-      programme.commit_updates
-      programme.title = title
-      programme.commit_updates
+      update_title_on_programme(programme, title)
     end
   end
+end
+
+task :update_episode do
+  epid = ARGV[1]
+  if epid.nil?
+    print "Enter episode pid: "
+    epid = STDIN.gets.chomp
+  end
+
+  puts "Finding episode with pid: #{epid}"
+  episode = PIPS::XML::Episode.new(pid: epid)
+
+  update_parents_for_programme(episode)
+
+  title = episode.title
+  puts "Updating Episode: #{title}"
+  update_title_on_programme(episode, title)
 end
 
 task :update_version do
