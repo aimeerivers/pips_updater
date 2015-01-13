@@ -23,8 +23,11 @@ def update_parents_for_programme(programme)
 end
 
 task :update_version do
-  print "Enter version pid: "
-  vpid = STDIN.gets.chomp
+  vpid = ARGV[1]
+  if vpid.nil?
+    print "Enter version pid: "
+    vpid = STDIN.gets.chomp
+  end
 
   puts "Finding version with pid: #{vpid}"
   version = PIPS::XML::Version.new(pid: vpid)
