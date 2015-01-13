@@ -7,6 +7,13 @@ def update_title_on_programme(programme, title)
   programme.commit_updates
 end
 
+def update_duration_on_programme(programme, duration)
+  programme.duration = (duration == "00:00:01") ? "00:00:02" : "00:00:01"
+  programme.commit_updates
+  programme.duration = duration
+  programme.commit_updates
+end
+
 def update_parents_for_programme(programme)
   parents = []
 
@@ -59,11 +66,7 @@ task :update_version do
 
   duration = version.duration
   puts "Updating Version: #{version.pid}"
-  version.duration = (duration == "00:00:01") ? "00:00:02" : "00:00:01"
-  version.commit_updates
-  version.duration = duration
-  version.commit_updates
-
+  update_duration_on_programme(version, duration)
 
 
 
@@ -91,9 +94,6 @@ task :update_version do
   ondemands.each_with_index do |ondemand, index|
     duration = ondemand.duration
     puts "Updating OnDemand: #{index + 1} of #{ondemands.size}"
-    ondemand.duration = (duration == "00:00:01") ? "00:00:02" : "00:00:01"
-    ondemand.commit_updates
-    ondemand.duration = duration
-    ondemand.commit_updates
+    update_duration_on_programme(ondemand, duration)
   end
 end
