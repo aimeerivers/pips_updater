@@ -1,9 +1,9 @@
 require 'pips'
 
-def update_parents_for_version(version)
+def update_parents_for_programme(programme)
   parents = []
 
-  parent = version.parent
+  parent = programme.parent
   while parent do
     parents.unshift(parent)
     parent = parent.parent
@@ -29,7 +29,7 @@ task :update_version do
   puts "Finding version with pid: #{vpid}"
   version = PIPS::XML::Version.new(pid: vpid)
 
-  update_parents_for_version(version)
+  update_parents_for_programme(version)
 
   # update duration on the version
 
