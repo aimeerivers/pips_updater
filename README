@@ -12,3 +12,6 @@ Given a version pid, update brand, series, episode, version, media_assets and on
 
 Given an episode pid, update brand, series and episode:
   rake update_episode
+
+If you want to create a brand with 30 episodes:
+  ruby create_brand_and_episodes.rb
